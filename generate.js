@@ -1,4 +1,5 @@
-const decks = require('./decks');
+const { drawMap, randomCard } = require('./field');
+const decks = require('./objects');
 
 const deck = () => {
   const flags = ['♦️', '♣️', '♠️', '♥️'];
@@ -9,6 +10,7 @@ const deck = () => {
     for (let j = 0; j < ranks.length; j++) {
       deck.push(flags[i] + ranks[j]);
     }
+    deck.push(flags[i] + jokers);
   }
   return deck;
 };
@@ -16,14 +18,14 @@ const deck = () => {
 const deckShuffle = (deck) => {
   for (let i = 0; i < deck.length; i++) {
     const card = deck[i];
-    const randomCard = Math.floor(Math.random() * 52);
+    const randomCard = Math.floor(Math.random() * 56);
     deck[i] = deck[randomCard];
     deck[randomCard] = card;
   }
   return deck;
 };
 
-decks.shuffledDeck = deckShuffle(deck());
-decks.orderedDeck = deck();
-console.log(decks.orderedDeck);
-console.log(decks.shuffledDeck);
+module.exports = {
+  deck,
+  deckShuffle
+};
